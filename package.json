@@ -1,0 +1,26 @@
+{
+  "name": "node_mysql",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "nodemon index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mbpod10/node_mysql.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/mbpod10/node_mysql/issues"
+  },
+  "homepage": "https://github.com/mbpod10/node_mysql#readme",
+  "dependencies": {
+    "express": "^4.17.1",
+    "faker": "^5.5.3",
+    "mysql": "^2.18.1",
+    "nodemon": "^2.0.13"
+  }
+}
