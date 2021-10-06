@@ -1,31 +1,28 @@
 const express = require('express')
-const bodyParser = require('body-parser')
+const router = express.Router();
 const bcrypt = require('bcrypt');
 const my_queries = require('./queries')
-const db = require('./databaseConfig')
-
-const app = express()
-app.use(bodyParser.json())
+const db = require('../databaseConfig')
 
 db.connect((err) => {
   if (err) throw err;
 })
 
-app.get('/users', (req, res) => {
+router.get('/users', (req, res) => {
   db.query(my_queries.all_users, (error, results, fields) => {
     if (error) throw error;
     return res.status(200).send(results)
   });
 })
 
-app.get('/photos', (req, res) => {
+router.get('/photos', (req, res) => {
   db.query(my_queries.all_photos, (error, results, fields) => {
     if (error) throw error;
     return res.status(200).send(results)
   });
 })
 
-app.post('/create_user', (req, res) => {
+router.post('/create_user', (req, res) => {
   unique_email = req.body.email
   db.query(my_queries.find_user, [[unique_email]], (error, results, fields) => {
     console.log(results)
@@ -44,7 +41,7 @@ app.post('/create_user', (req, res) => {
   })
 })
 
-app.post('/create_photo', (req, res) => {
+router.post('/create_photo', (req, res) => {
   db.query(my_queries.create_photo, [[req.body.image_url, req.body.user_id]], (error, results, fields) => {
     if (error) throw error;
     console.log(fields)
@@ -52,7 +49,7 @@ app.post('/create_photo', (req, res) => {
   })
 })
 
-app.post('/login', (req, res) => {
+router.post('/login', (req, res) => {
   unique_email = req.body.email
   db.query(my_queries.find_user, [[unique_email]], (error, results, fields) => {
     if (error) throw error;
@@ -70,11 +67,4 @@ app.post('/login', (req, res) => {
   })
 })
 
-
-
-
-
-app.set("port", process.env.PORT || 4001);
-app.listen(app.get("port"), () => {
-  console.log(db.config.database, `CONNECTED ON PORT: ${app.get("port")} `);
-});
+module.exports = router;

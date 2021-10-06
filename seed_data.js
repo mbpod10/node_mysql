@@ -1,5 +1,6 @@
 const db = require('./databaseConfig')
 const faker = require('faker');
+const bcrypt = require('bcrypt');
 
 const DATA_NUMBER = 250
 let values = []
@@ -11,7 +12,8 @@ const createUserData = () => {
   for (let i = 0; i <= DATA_NUMBER; i++) {
     let randomEmail = faker.internet.email();
     let pastDate = faker.date.past()
-    values.push([randomEmail, pastDate, "hkhlkjhk"])
+    // values.push([randomEmail, pastDate, bcrypt.hashSync('123', 10)])
+    values.push([randomEmail, pastDate, "123"])
   }
 }
 createUserData()
