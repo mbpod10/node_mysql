@@ -18,8 +18,11 @@ CREATE TABLE photos (
     FOREIGN KEY(user_id) REFERENCES users(id)
 );
 
--- INSERT INTO users (email)
--- VALUES ('jnmn@mgial.com');
 
--- INSERT INTO photos(image_url, user_id_)
--- VALUES ('ajsdfkdjlaksjdlkfj', 1);
+SELECT email, 
+users.id AS user_id, 
+COUNT(photos.user_id) AS post_count
+FROM photos
+RIGHT JOIN users 
+ON users.id = photos.user_id
+GROUP BY users.id;

@@ -1,6 +1,7 @@
 let mysql = require('mysql');
-const faker = require('faker');
 const express = require('express')
+const my_queries = require('./queries')
+
 const app = express()
 
 let connection = mysql.createConnection({
@@ -10,12 +11,40 @@ let connection = mysql.createConnection({
   database: 'join_us_db'
 });
 
-all_users = 'SELECT users.id AS user_id, email, image_url, photos.id AS photo_id FROM users JOIN photos ON users.id = photos.user_id'
-
 app.get('/', (req, res) => {
   connection.connect((err) => {
     if (err) throw err;
-    connection.query(all_users, (error, results, fields) => {
+    connection.query(my_queries.all_users, (error, results, fields) => {
+      if (error) throw error;
+      res.send(results).json()
+    });
+    connection.end(error => {
+      if (error) throw error;
+    });
+  });
+})
+
+
+app.get('/users', (req, res) => {
+  connection.connect((err) => {
+    if (err) throw err;
+    connection.query(my_queries.all_users_2, (error, results, fields) => {
+      if (error) throw error;
+      res.send(results).json()
+    });
+    connection.end(error => {
+      if (error) throw error;
+    });
+  });
+})
+
+all_photos =
+  `SELECT * FROM photos`
+
+app.get('/photos', (req, res) => {
+  connection.connect((err) => {
+    if (err) throw err;
+    connection.query(my_queries.all_photos, (error, results, fields) => {
       if (error) throw error;
       res.send(results)
     });
@@ -25,11 +54,6 @@ app.get('/', (req, res) => {
   });
 })
 
-
-
-app.get('/id/:id', (req, res) => {
-  res.send(req.params.id)
-})
 
 app.listen(4001, () => {
   console.log('connected on port 4001')

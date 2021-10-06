@@ -1,7 +1,7 @@
 let mysql = require('mysql');
 const faker = require('faker');
 
-const DATA_NUMBER = 500
+const DATA_NUMBER = 20
 
 let connection = mysql.createConnection({
   host: 'localhost',
