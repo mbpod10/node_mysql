@@ -1,18 +1,11 @@
 const my_queries = {
-  all_users:
-    `SELECT users.id AS user_id, 
-    email, image_url, 
-    photos.id AS photo_id 
-    FROM users
-    RIGHT JOIN 
-    photos 
-    ON users.id = photos.user_id`,
   all_photos:
     `SELECT * FROM photos`,
-  all_users_2:
+  all_users:
     `SELECT email, 
     users.id AS user_id, 
-    COUNT(photos.user_id) AS post_count
+    COUNT(photos.user_id) AS post_count,
+    password
     FROM photos
     RIGHT JOIN users 
     ON users.id = photos.user_id
@@ -20,7 +13,9 @@ const my_queries = {
   find_user:
     `SELECT * FROM users WHERE email= (?)`,
   create_user:
-    "INSERT INTO users (email) VALUES (?)",
+    "INSERT INTO users (email, password) VALUES (?)",
+  create_photo:
+    "INSERT INTO photos (image_url, user_id) VALUES (?)",
 
 }
 
