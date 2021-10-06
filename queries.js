@@ -20,7 +20,7 @@ const my_queries = {
   find_user:
     `SELECT * FROM users WHERE email= (?)`,
   create_user:
-    "INSERT INTO users (email, created_at) VALUES (?)",
+    "INSERT INTO users (email) VALUES (?)",
 
 }
 

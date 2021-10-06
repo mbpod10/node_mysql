@@ -1,4 +1,4 @@
-const connection = require('./databaseConfig')
+const db = require('./databaseConfig')
 const faker = require('faker');
 
 const DATA_NUMBER = 250
@@ -16,7 +16,7 @@ const createUserData = () => {
   }
 }
 createUserData()
-connection.query(add_users, [values], (err) => {
+db.query(add_users, [values], (err) => {
   if (err) throw err;
 })
 
@@ -29,8 +29,8 @@ const createPhotoData = () => {
   }
 }
 createPhotoData()
-connection.query(add_images, [photo_values], (err) => {
+db.query(add_images, [photo_values], (err) => {
   if (err) throw err;
 })
 
-connection.end();
+db.end();

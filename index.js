@@ -1,88 +1,50 @@
 const express = require('express')
 const bodyParser = require('body-parser')
 const my_queries = require('./queries')
-const connection = require('./databaseConfig')
+const db = require('./databaseConfig')
 
 const app = express()
 app.use(bodyParser.json())
 
-app.get('/', (req, res) => {
-  connection.connect((err) => {
-    if (err) throw err;
-    connection.query(my_queries.all_users, (error, results, fields) => {
-      if (error) throw error;
-      res.send(results).json()
-    });
-    connection.end(error => {
-      if (error) throw error;
-    });
-  });
+db.connect((err) => {
+  if (err) throw err;
 })
 
 app.get('/users', (req, res) => {
-  connection.connect((err) => {
-    if (err) throw err;
-    connection.query(my_queries.all_users_2, (error, results, fields) => {
-      if (error) throw error;
-      res.send(results).json()
-    });
-    connection.end(error => {
-      if (error) throw error;
-    });
+  db.query(my_queries.all_users_2, (error, results, fields) => {
+    if (error) throw error;
+    return res.status(200).send(results)
   });
 })
 
 app.get('/photos', (req, res) => {
-  connection.connect((err) => {
-    if (err) throw err;
-    connection.query(my_queries.all_photos, (error, results, fields) => {
-      if (error) throw error;
-      res.send(results)
-    });
-    connection.end(error => {
-      if (error) throw error;
-    });
-  });
-})
-
-
-app.post('/', (req, res) => {
-  connection.connect((err) => {
-    if (err) throw err;
-    connection.query(add_user, [[req.body.email, req.body.created_at]], (err) => {
-      if (err) throw err;
-      res.send({ 201: "USER CREATED" })
-    })
-    connection.end(error => {
-      if (error) throw error;
-    });
+  db.query(my_queries.all_photos, (error, results, fields) => {
+    if (error) throw error;
+    return res.status(200).send(results)
   });
 })
 
 app.post('/create_user', (req, res) => {
   exists = false
   unique_email = req.body.email
-  connection.query(my_queries.find_user, [[unique_email]], (error, results, fields) => {
+  db.query(my_queries.find_user, [[unique_email]], (error, results, fields) => {
     console.log(results)
     if (error) throw error;
     if (results[0]) {
-      res.send({ 409: 'Conflict', "message": 'user already exists' })
-      exists = true
+      return res.status(201).send({ 409: 'Conflict', "message": 'user already exists' })
+    }
+    else {
+      db.query(my_queries.create_user, [[unique_email]], (err) => {
+        if (err) throw err;
+        return res.status(201).send({ 201: "USER CREATED" })
+      })
     }
   })
-  if (!exists) {
-    connection.query(my_queries.create_user, [[req.body.email, req.body.created_at]], (err) => {
-      if (err) throw err;
-      res.send({ 201: "USER CREATED" })
-    })
-  }
-  connection.end()
-})
-
-
-app.listen(4001, () => {
-  console.log('connected on port 4001')
 })
 
 
 
+app.set("port", process.env.PORT || 4001);
+app.listen(app.get("port"), () => {
+  console.log(db.config.database, `CONNECTED ON PORT: ${app.get("port")} `);
+});
