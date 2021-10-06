@@ -1,15 +1,10 @@
-let mysql = require('mysql');
 const express = require('express')
+const bodyParser = require('body-parser')
 const my_queries = require('./queries')
+const connection = require('./databaseConfig')
 
 const app = express()
-
-let connection = mysql.createConnection({
-  host: 'localhost',
-  user: 'root',
-  password: 'Python1/',
-  database: 'join_us_db'
-});
+app.use(bodyParser.json())
 
 app.get('/', (req, res) => {
   connection.connect((err) => {
@@ -24,7 +19,6 @@ app.get('/', (req, res) => {
   });
 })
 
-
 app.get('/users', (req, res) => {
   connection.connect((err) => {
     if (err) throw err;
@@ -38,9 +32,6 @@ app.get('/users', (req, res) => {
   });
 })
 
-all_photos =
-  `SELECT * FROM photos`
-
 app.get('/photos', (req, res) => {
   connection.connect((err) => {
     if (err) throw err;
@@ -52,6 +43,40 @@ app.get('/photos', (req, res) => {
       if (error) throw error;
     });
   });
+})
+
+
+app.post('/', (req, res) => {
+  connection.connect((err) => {
+    if (err) throw err;
+    connection.query(add_user, [[req.body.email, req.body.created_at]], (err) => {
+      if (err) throw err;
+      res.send({ 201: "USER CREATED" })
+    })
+    connection.end(error => {
+      if (error) throw error;
+    });
+  });
+})
+
+app.post('/create_user', (req, res) => {
+  exists = false
+  unique_email = req.body.email
+  connection.query(my_queries.find_user, [[unique_email]], (error, results, fields) => {
+    console.log(results)
+    if (error) throw error;
+    if (results[0]) {
+      res.send({ 409: 'Conflict', "message": 'user already exists' })
+      exists = true
+    }
+  })
+  if (!exists) {
+    connection.query(my_queries.create_user, [[req.body.email, req.body.created_at]], (err) => {
+      if (err) throw err;
+      res.send({ 201: "USER CREATED" })
+    })
+  }
+  connection.end()
 })
 
 

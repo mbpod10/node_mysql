@@ -16,7 +16,12 @@ const my_queries = {
     FROM photos
     RIGHT JOIN users 
     ON users.id = photos.user_id
-    GROUP BY users.id`
+    GROUP BY users.id`,
+  find_user:
+    `SELECT * FROM users WHERE email= (?)`,
+  create_user:
+    "INSERT INTO users (email, created_at) VALUES (?)",
+
 }
 
 module.exports = my_queries

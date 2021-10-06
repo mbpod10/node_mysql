@@ -1,17 +1,13 @@
-let mysql = require('mysql');
+const connection = require('./databaseConfig')
 const faker = require('faker');
 
-const DATA_NUMBER = 20
-
-let connection = mysql.createConnection({
-  host: 'localhost',
-  user: 'root',
-  password: 'Python1/',
-  database: 'join_us_db'
-});
-
+const DATA_NUMBER = 250
 let values = []
 let users_count = null
+let photo_values = []
+let add_users = "INSERT INTO users (email, created_at) VALUES ?";
+let add_images = "INSERT INTO photos (image_url, user_id, created_at) VALUES ?";
+
 const createUserData = () => {
   for (let i = 0; i <= DATA_NUMBER; i++) {
     let randomEmail = faker.internet.email();
@@ -20,18 +16,9 @@ const createUserData = () => {
   }
 }
 createUserData()
-
-let add_users = "INSERT INTO users (email, created_at) VALUES ?";
-let add_images = "INSERT INTO photos (image_url, user_id, created_at) VALUES ?";
-// let add_images = "INSERT INTO photos SET ?";
-
-
 connection.query(add_users, [values], (err) => {
   if (err) throw err;
-  // connection.end();
 })
-
-let photo_values = []
 
 const createPhotoData = () => {
   for (let i = 0; i <= DATA_NUMBER - 1; i++) {
@@ -42,20 +29,8 @@ const createPhotoData = () => {
   }
 }
 createPhotoData()
-
 connection.query(add_images, [photo_values], (err) => {
   if (err) throw err;
 })
 
-// for (var i = 0; i < 500; i++) {
-//   var photo = {
-//     image_url: faker.image.imageUrl(),
-//     user_id_: Math.ceil(Math.random() * 49),
-//     created_at: faker.date.past()
-//   };
-//   var end_result = connection.query("INSERT INTO photos SET ?", photo, function (err, result) {
-//     if (err) throw err;
-//     console.log(result);
-//   });
-// }
 connection.end();
