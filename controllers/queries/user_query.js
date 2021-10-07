@@ -26,7 +26,9 @@ const my_queries = {
     WHERE users.id = (?)`,
   find_user_by_id_sub:
     `SELECT * FROM users
-    WHERE users.id = (?)`
+    WHERE users.id = (?)`,
+  get_comments_by_id:
+    `SELECT * FROM comments WHERE comments.user_id = (?)`
 
 }
 

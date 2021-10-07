@@ -36,13 +36,4 @@ CREATE TABLE comments (
 );
 
 
--- INSERT INTO comments(content, user_id, photo_id)
--- VALUES("LMAO THAT's funny", 1, 2);
-
--- SELECT  
--- photos.id AS photo_id,
--- image_url,
--- photos.created_at
--- FROM photos
--- JOIN users ON users.id = photos.user_id
---  WHERE users.id = 1;
+SELECT * FROM comments WHERE comments.user_id = 101
