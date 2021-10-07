@@ -62,6 +62,7 @@ router.get('/:id', (req, res) => {
           "password": user_results[0].password,
           "user_created": user_results[0].created_at,
           "post_count": photo_results.length,
+          "comment_count": comment_results.length,
           "posts": photo_results,
           "comments": comment_results
         }

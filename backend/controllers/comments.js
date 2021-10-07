@@ -10,4 +10,11 @@ router.get('/', (req, res) => {
   });
 })
 
+router.post('/post_comment', (req, res) => {
+  db.query(comments_query.post_comment, [[req.body.content, req.body.user_id, req.body.photo_id]], (error, results) => {
+    if (error) throw error;
+    return res.status(201).send({ "message": "comment created" })
+  });
+})
+
 module.exports = router
