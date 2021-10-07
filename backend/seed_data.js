@@ -14,8 +14,8 @@ const createUserData = () => {
   for (let i = 0; i <= DATA_NUMBER; i++) {
     let randomEmail = faker.internet.email();
     let pastDate = faker.date.past()
-    // values.push([randomEmail, pastDate, bcrypt.hashSync('123', 10)])
-    values.push([randomEmail, pastDate, "123"])
+    values.push([randomEmail, pastDate, bcrypt.hashSync('123', 10)])
+    // values.push([randomEmail, pastDate, "123"])
   }
 }
 createUserData()

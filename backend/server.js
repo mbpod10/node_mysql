@@ -1,6 +1,8 @@
 const db = require('./databaseConfig')
 const express = require('express')
+const cors = require('cors')
 const app = express()
+app.use(cors())
 const bodyParser = require('body-parser')
 const usersController = require("./controllers/users");
 const photosController = require("./controllers/photos")

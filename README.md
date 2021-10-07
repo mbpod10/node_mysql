@@ -1,4 +1,4 @@
-# Node integrations with MySQL
+# MySQL Express React Node
 
 ig_clone DATABASE
 
