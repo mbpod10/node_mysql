@@ -16,6 +16,17 @@ const my_queries = {
     "INSERT INTO users (email, password) VALUES (?)",
   create_photo:
     "INSERT INTO photos (image_url, user_id) VALUES (?)",
+  find_user_by_id:
+    `SELECT 
+    photos.id AS image_id, 
+    image_url, 
+    photos.created_at 
+    FROM users
+    JOIN photos ON users.id = photos.user_id
+    WHERE users.id = (?)`,
+  find_user_by_id_sub:
+    `SELECT * FROM users
+    WHERE users.id = (?)`
 
 }
 

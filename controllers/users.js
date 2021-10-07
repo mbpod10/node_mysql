@@ -4,19 +4,8 @@ const bcrypt = require('bcrypt');
 const my_queries = require('./queries')
 const db = require('../databaseConfig')
 
-db.connect((err) => {
-  if (err) throw err;
-})
-
-router.get('/users', (req, res) => {
-  db.query(my_queries.all_users, (error, results, fields) => {
-    if (error) throw error;
-    return res.status(200).send(results)
-  });
-})
-
-router.get('/photos', (req, res) => {
-  db.query(my_queries.all_photos, (error, results, fields) => {
+router.get('/', (req, res) => {
+  db.query(my_queries.all_users, (error, results) => {
     if (error) throw error;
     return res.status(200).send(results)
   });
@@ -24,7 +13,7 @@ router.get('/photos', (req, res) => {
 
 router.post('/create_user', (req, res) => {
   unique_email = req.body.email
-  db.query(my_queries.find_user, [[unique_email]], (error, results, fields) => {
+  db.query(my_queries.find_user, [[unique_email]], (error, results) => {
     console.log(results)
     if (error) throw error;
     if (results[0]) {
@@ -41,17 +30,9 @@ router.post('/create_user', (req, res) => {
   })
 })
 
-router.post('/create_photo', (req, res) => {
-  db.query(my_queries.create_photo, [[req.body.image_url, req.body.user_id]], (error, results, fields) => {
-    if (error) throw error;
-    console.log(fields)
-    return res.status(200).send(results)
-  })
-})
-
 router.post('/login', (req, res) => {
   unique_email = req.body.email
-  db.query(my_queries.find_user, [[unique_email]], (error, results, fields) => {
+  db.query(my_queries.find_user, [[unique_email]], (error, results) => {
     if (error) throw error;
     if (results[0]) {
       if (bcrypt.compareSync(req.body.password, results[0].password)) {
@@ -65,6 +46,24 @@ router.post('/login', (req, res) => {
       return res.status(401).send({ 401: 'User Not Found' })
     }
   })
+})
+
+router.get('/:id', (req, res) => {
+  db.query(my_queries.find_user_by_id_sub, [[req.params.id]], (error, user_results) => {
+    if (error) throw error;
+    db.query(my_queries.find_user_by_id, [[req.params.id]], (error, results) => {
+      if (error) throw error;
+      return_results = {
+        "user_id": user_results[0].id,
+        "email": user_results[0].email,
+        "password": user_results[0].password,
+        "user_created": user_results[0].created_at,
+        "post_count": results.length,
+        "posts": results
+      }
+      return res.status(200).send(return_results)
+    });
+  });
 })
 
 module.exports = router;

@@ -7,4 +7,8 @@ const db = mysql.createConnection({
   database: 'join_us_db'
 });
 
+db.connect((err) => {
+  if (err) throw err;
+})
+
 module.exports = db

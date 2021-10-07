@@ -22,10 +22,6 @@ CREATE TABLE photos (
 );
 
 
--- SELECT email, 
--- users.id AS user_id, 
--- COUNT(photos.user_id) AS post_count
--- FROM photos
--- RIGHT JOIN users 
--- ON users.id = photos.user_id
--- GROUP BY users.id;
+-- SELECT * FROM users
+-- JOIN photos ON users.id = photos.user_id
+--  WHERE users.id = 1; 
