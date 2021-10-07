@@ -1,7 +1,7 @@
 const express = require('express')
 const router = express.Router();
 const bcrypt = require('bcrypt');
-const my_queries = require('./queries')
+const my_queries = require('./queries/user_query')
 const db = require('../databaseConfig')
 
 router.get('/', (req, res) => {
