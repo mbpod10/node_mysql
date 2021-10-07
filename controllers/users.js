@@ -48,23 +48,6 @@ router.post('/login', (req, res) => {
   })
 })
 
-// router.get('/:id', (req, res) => {
-//   db.query(user_queries.find_user_by_id_sub, [[req.params.id]], (error, user_results) => {
-//     if (error) throw error;
-//     db.query(user_queries.find_user_by_id, [[req.params.id]], (error, photo_results) => {
-//       if (error) throw error;
-//       return_results = {
-//         "user_id": user_results[0].id,
-//         "email": user_results[0].email,
-//         "password": user_results[0].password,
-//         "user_created": user_results[0].created_at,
-//         "post_count": photo_results.length,
-//         "posts": photo_results
-//       }
-//       return res.status(200).send(return_results)
-//     });
-//   });
-// })
 
 router.get('/:id', (req, res) => {
   db.query(user_queries.find_user_by_id_sub, [[req.params.id]], (error, user_results) => {
@@ -83,9 +66,7 @@ router.get('/:id', (req, res) => {
           "comments": comment_results
         }
         return res.status(200).send(return_results)
-
       });
-
     });
   });
 })

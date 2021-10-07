@@ -36,4 +36,4 @@ CREATE TABLE comments (
 );
 
 
-SELECT * FROM comments WHERE comments.user_id = 101
+-- SELECT * FROM comments WHERE comments.user_id = 101;
