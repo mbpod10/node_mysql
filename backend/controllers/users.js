@@ -49,6 +49,14 @@ router.post('/login', (req, res) => {
 })
 
 
+router.get('/profiles', (req, res) => {
+  db.query(user_queries.join_user_and_profile, (error, results) => {
+    if (error) throw error;
+    return res.status(200).send(results)
+  });
+})
+
+
 router.get('/:id', (req, res) => {
   db.query(user_queries.find_user_by_id_sub, [[req.params.id]], (error, user_results) => {
     if (error) throw error;
@@ -71,5 +79,6 @@ router.get('/:id', (req, res) => {
     });
   });
 })
+
 
 module.exports = router;

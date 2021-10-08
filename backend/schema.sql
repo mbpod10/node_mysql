@@ -35,5 +35,17 @@ CREATE TABLE comments (
       ON DELETE CASCADE
 );
 
+DROP TABLE IF EXISTS profiles;
+CREATE TABLE profiles (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  first_name VARCHAR(255) NOT NULL,
+  last_name VARCHAR(255) NOT NULL,
+  profile_image VARCHAR(255) NOT NULL,
+  birthday TIMESTAMP DEFAULT NOW(),
+  profile_description VARCHAR(255), 
+  user_id INTEGER UNIQUE NOT NULL,
+    FOREIGN KEY(user_id) REFERENCES users(id)
+);
 
--- SELECT * FROM comments WHERE comments.user_id = 101;
+-- INSERT INTO profiles(first_name, last_name, profile_image, birthday, profile_description, user_id) 
+-- VALUES ("brock", "pod", "dasdfasdfasdf", "2021-09-22", "I love it", 1);

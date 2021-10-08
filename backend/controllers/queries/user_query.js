@@ -28,7 +28,9 @@ const my_queries = {
     `SELECT * FROM users
     WHERE users.id = (?)`,
   get_comments_by_id:
-    `SELECT * FROM comments WHERE comments.user_id = (?)`
+    `SELECT * FROM comments WHERE comments.user_id = (?)`,
+  join_user_and_profile:
+    `SELECT * FROM users JOIN profiles ON users.id = profiles.user_id`
 
 }
 
