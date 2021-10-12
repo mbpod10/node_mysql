@@ -1,19 +1,30 @@
+import React, { useState } from 'react';
 import Button from 'react-bootstrap/Button';
 import Navbar from 'react-bootstrap/Navbar';
 import Nav from 'react-bootstrap/Nav';
-// import NavDropdown from 'react-bootstrap/NavDropdown';
 import Form from 'react-bootstrap/Form';
 import FormControl from 'react-bootstrap/FormControl';
 import { LinkContainer } from 'react-router-bootstrap'
 import './styles/Navbar.css'
 
 
-const Navibar = () => {
+const Navibar = (props) => {
+
+  const [query, setQuery] = useState("")
+
+  const onSubmit = (event) => {
+    event.preventDefault()
+    props.getQuery(query)
+  }
+
+  const onChange = (event) => {
+    setQuery(event.target.value)
+  }
 
   return (
     <>
       <Navbar bg="dark" expand="lg" variant="dark">
-        <Navbar.Brand href="#">JoynUs</Navbar.Brand>
+        <Navbar.Brand>JoynUs</Navbar.Brand>
         <Navbar.Toggle aria-controls="navbarScroll" />
         <Navbar.Collapse id="navbarScroll">
           <Nav
@@ -37,8 +48,9 @@ const Navibar = () => {
               placeholder="Search"
               className="mr-2"
               aria-label="Search"
+              onChange={onChange}
             />
-            <Button variant="outline-success">Search</Button>
+            <Button onClick={onSubmit} variant="outline-success">Search</Button>
           </Form>
         </Navbar.Collapse>
       </Navbar>
