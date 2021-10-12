@@ -1,0 +1,46 @@
+.card_container {
+  align-items: center;
+}
+
+.card {
+  margin: auto;
+  margin-bottom: 40px;
+}
+
+.card-img-top {
+   border: black solid 2px;
+  }
+  
+.card-body {
+  border-bottom: darkgray solid 2px; 
+  border-left: darkgray solid 2px; 
+  border-right: darkgray solid 2px;
+}
+
+.card-text{
+  text-align: left;
+}
+
+.date{
+  font-size: 12px;
+}
+
+.user_image_div {
+  background: lightblue;
+   width: 50px;
+   height: 50px;
+   border-radius: 50%;
+   display: flex;
+   justify-content: center;
+   align-items: center;
+   transition: all 0.5s ease 0s;  
+}
+.user_image {
+  width: 40px; 
+  height: 40px; 
+  border-radius: 50%;   
+}
+
+.username {
+  padding-left: 10px;
+}

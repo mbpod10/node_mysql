@@ -5,7 +5,8 @@ USE join_us_db;
 DROP TABLE IF EXISTS users;
 CREATE TABLE users (
   id INT AUTO_INCREMENT PRIMARY KEY,
-  email VARCHAR(255) UNIQUE,
+  email VARCHAR(255) UNIQUE NOT NULL,
+  username VARCHAR(255) UNIQUE NOT NULL,
   created_at TIMESTAMP DEFAULT NOW(),
   password VARCHAR(255) NOT NULL
 );
@@ -16,6 +17,7 @@ CREATE TABLE photos (
     image_url VARCHAR(255) NOT NULL,
     user_id INTEGER NOT NULL,
     created_at TIMESTAMP DEFAULT NOW(),
+    caption VARCHAR(255),
     FOREIGN KEY(user_id) 
       REFERENCES users(id) 
       ON DELETE CASCADE
@@ -47,5 +49,28 @@ CREATE TABLE profiles (
     FOREIGN KEY(user_id) REFERENCES users(id)
 );
 
--- INSERT INTO profiles(first_name, last_name, profile_image, birthday, profile_description, user_id) 
--- VALUES ("brock", "pod", "dasdfasdfasdf", "2021-09-22", "I love it", 1);
+-- SELECT 
+-- photos.id AS photo_id,
+-- username,
+-- image_url,
+-- photos.created_at,
+-- users.id AS user_id,
+-- profile_image,
+-- COUNT(comments.id) AS comments
+-- FROM photos
+-- JOIN users ON users.id = photos.user_id
+-- JOIN profiles ON users.id = profiles.user_id
+-- JOIN comments ON photos.id = comments.photo_id
+-- GROUP BY comments.photo_id
+-- ORDER BY photos.created_at DESC LIMIT 10;
+
+-- SELECT * FROM comments WHERE comments.photo_id = 3;
+
+SELECT
+comments.user_id AS commenter_id,
+content,
+users.username 
+FROM comments 
+JOIN photos ON comments.photo_id = photos.id
+JOIN users ON comments.user_id = users.id 
+WHERE photos.id = 6;

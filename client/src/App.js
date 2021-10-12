@@ -15,8 +15,8 @@ function App() {
       <div className="App">
         <Navbar />
         <Route exact path="/" render={(props) => (<Home />)} />
-        <Route path="/user/:id" render={(props) => (<User {...props} />)} />
         <Route path="/users" render={(props) => (<Users />)} />
+        <Route path="/user/:id" render={(props) => (<User {...props} />)} />
       </div>
     </Switch>
   );

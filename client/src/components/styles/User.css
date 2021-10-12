@@ -1,0 +1,43 @@
+.container {
+  margin-top: 50px;
+  padding: 10px;
+  background-color: darkgray;
+  border: black solid 2px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-evenly;
+  border-radius: 20px;
+}
+
+.userPosts{
+  text-align: left;
+}
+
+.black-line {
+  height: 100%;
+  width: 30%;
+
+}
+
+.rounded {
+  border: black solid 2px;
+  width: 300px;
+  height: 300px;
+}
+
+.user_image_div- {
+  background: lightblue;
+  width: 280px;
+  height: 280px;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: all 0.5s ease 0s;  
+}
+.user_image- {
+  width: 260px; 
+  height: 260px; 
+  border-radius: 50%;   
+}

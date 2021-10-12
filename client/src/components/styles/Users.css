@@ -1,9 +1,11 @@
-.user_container {
+/* .user_container {
   display: flex;
   justify-content:space-around;
   align-items: center;
   margin-bottom: 20px;
 }
+
+
 
 .user_image_div {
   background: lightblue;
@@ -20,3 +22,11 @@
   height: 110px; 
   border-radius: 50%;   
 }
+
+.link_ {
+  color: red;
+}
+
+.break {
+  width: 30%;
+} */

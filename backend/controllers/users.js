@@ -56,6 +56,14 @@ router.get('/profiles', (req, res) => {
   });
 })
 
+router.get('/search/:search', (req, res) => {
+  search_query = `SELECT * from users WHERE email LIKE '%${req.params.search}%'`
+  db.query(search_query, [req.params.search], (error, results) => {
+    if (error) throw error;
+    return res.status(200).send(results)
+  });
+})
+
 
 router.get('/:id', (req, res) => {
   db.query(user_queries.find_user_by_id_sub, [[req.params.id]], (error, user_results) => {
@@ -67,8 +75,13 @@ router.get('/:id', (req, res) => {
         return_results = {
           "user_id": user_results[0].id,
           "email": user_results[0].email,
-          "password": user_results[0].password,
           "user_created": user_results[0].created_at,
+          "username": user_results[0].username,
+          "first_name": user_results[0].first_name,
+          "last_name": user_results[0].last_name,
+          "profile_image": user_results[0].profile_image,
+          "birthday": user_results[0].birthday,
+          "profile_description": user_results[0].profile_description,
           "post_count": photo_results.length,
           "comment_count": comment_results.length,
           "posts": photo_results,

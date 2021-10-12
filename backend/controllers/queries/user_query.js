@@ -5,6 +5,7 @@ const my_queries = {
     `SELECT email, 
     users.id AS user_id, 
     COUNT(photos.user_id) AS post_count,
+    username,
     password
     FROM photos
     RIGHT JOIN users 
@@ -24,14 +25,17 @@ const my_queries = {
     FROM users
     JOIN photos ON users.id = photos.user_id
     WHERE users.id = (?)`,
+  // find_user_by_id_sub:
+  //   `SELECT * FROM users
+  //   WHERE users.id = (?)`,
   find_user_by_id_sub:
     `SELECT * FROM users
+    JOIN profiles ON users.id = profiles.user_id
     WHERE users.id = (?)`,
   get_comments_by_id:
     `SELECT * FROM comments WHERE comments.user_id = (?)`,
   join_user_and_profile:
     `SELECT * FROM users JOIN profiles ON users.id = profiles.user_id`
-
 }
 
 module.exports = my_queries
