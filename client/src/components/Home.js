@@ -20,8 +20,6 @@ const Home = () => {
     makeAPICall()
   }, [])
 
-
-
   const return_array = photoArray.map((element, index) => {
     return (
       <>
@@ -32,13 +30,16 @@ const Home = () => {
               <div className="user_image_div">
                 <img src={element.profile_image} className="user_image" alt={"profile"} />
               </div>
-              <Link className="username" to={`/user/${element.user_id}`}><b>@{element.username}</b></Link> {element.caption}
+              <Link className="username" to={`/user/${element.user_id}`}><b>{element.username}</b></Link> {element.caption}
             </Card.Text>
             <Card.Text className="date" key={element.email}>{element.created_at} </Card.Text>
             {element.comments === 0 ?
               <Card.Text key={element.email}>{element.comments} No Comments </Card.Text>
               :
               <Card.Text key={element.index} >{element.comments} Comment(s) </Card.Text>}
+            <Card.Text className="user_info" key={element.email}>
+              <Link className="username" to={`/post/${element.photo_id}`}>Go To Post</Link>
+            </Card.Text>
           </Card.Body>
         </Card>
       </>
@@ -47,7 +48,7 @@ const Home = () => {
 
   return (
     <>
-      <h1>JoynUs</h1>
+      {/* <h1>JoynUs</h1> */}
       <div className="card-container">
         {return_array}
       </div>

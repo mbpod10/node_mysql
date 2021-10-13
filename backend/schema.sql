@@ -27,6 +27,7 @@ DROP TABLE IF EXISTS comments;
 CREATE TABLE comments (
     id INTEGER AUTO_INCREMENT PRIMARY KEY,
     content VARCHAR(255) NOT NULL,
+    created_at TIMESTAMP DEFAULT NOW(),
     user_id INTEGER NOT NULL,
     FOREIGN KEY(user_id) 
       REFERENCES users(id) 
@@ -49,28 +50,25 @@ CREATE TABLE profiles (
     FOREIGN KEY(user_id) REFERENCES users(id)
 );
 
--- SELECT 
--- photos.id AS photo_id,
--- username,
--- image_url,
--- photos.created_at,
--- users.id AS user_id,
--- profile_image,
--- COUNT(comments.id) AS comments
--- FROM photos
--- JOIN users ON users.id = photos.user_id
--- JOIN profiles ON users.id = profiles.user_id
--- JOIN comments ON photos.id = comments.photo_id
--- GROUP BY comments.photo_id
--- ORDER BY photos.created_at DESC LIMIT 10;
+-- SELECT
+-- *
+-- FROM comments
+-- JOIN photos ON photos.id = comments.photo_id
+-- RIGHT JOIN users
+-- ON users.id = photos.user_id
+-- WHERE comments.user_id = 8;
 
--- SELECT * FROM comments WHERE comments.photo_id = 3;
+-- SELECT
+-- users.username,
+-- comments.created_at,
+-- comments.content
+-- FROM comments
+-- JOIN photos ON photos.id = comments.photo_id
+-- RIGHT JOIN users
+-- ON users.id = photos.user_id
+-- WHERE comments.user_id = 8;
 
-SELECT
-comments.user_id AS commenter_id,
-content,
-users.username 
-FROM comments 
-JOIN photos ON comments.photo_id = photos.id
-JOIN users ON comments.user_id = users.id 
-WHERE photos.id = 6;
+-- SELECT * FROM comments WHERE comments.user_id = 8;
+
+INSERT INTO comments(content, user_id, photo_id)
+VALUES ('HEYYYYYYY', 1, 20);

@@ -42,7 +42,7 @@ router.get('/comments/:photo_id', (req, res) => {
 router.get('/:id', (req, res) => {
   db.query(photo_queries.find_photo_by_id, [[req.params.id]], (error, results) => {
     if (error) throw error;
-    return res.status(200).send(results)
+    return res.status(200).send(results[0])
   });
 })
 

@@ -1,5 +1,5 @@
-.container {
-  margin-top: 50px;
+.greybox {
+  margin-top: 30px;
   padding: 10px;
   background-color: darkgray;
   border: black solid 2px;
@@ -40,4 +40,25 @@
   width: 260px; 
   height: 260px; 
   border-radius: 50%;   
+}
+
+.username {
+  margin-top: 20px;
+  text-align: left;  
+}
+
+.fullname {  
+  text-align: right;   
+}
+
+.t {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+@media (min-width: 992px) {
+  .fullname, .username {
+      max-width: 960px;
+  }
 }

@@ -21,6 +21,7 @@ const photo_queries = {
     image_url,
     photos.created_at,
     email,
+    username,
     users.id AS user_id
     FROM photos 
     JOIN users ON photos.user_id = users.id

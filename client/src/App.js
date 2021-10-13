@@ -6,6 +6,7 @@ import Home from './components/Home';
 import { Switch, Route } from "react-router-dom";
 import Navbar from './components/NavBar';
 import Search from './components/Search';
+import Post from './components/Post';
 import { useHistory } from 'react-router-dom';
 
 function App(props) {
@@ -24,6 +25,7 @@ function App(props) {
         <Route exact path="/" render={(props) => (<Home />)} />
         <Route path="/users" render={(props) => (<Users />)} />
         <Route path="/user/:id" render={(props) => (<User {...props} />)} />
+        <Route path="/post/:id" render={(props) => (<Post {...props} />)} />
         <Route path="/search/:query" render={(props) => (<Search {...props} query={query} />)} />
       </div>
     </Switch>
