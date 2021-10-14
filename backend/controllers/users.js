@@ -36,14 +36,14 @@ router.post('/login', (req, res) => {
     if (error) throw error;
     if (results[0]) {
       if (bcrypt.compareSync(req.body.password, results[0].password)) {
-        return res.status(201).send({ 200: 'Login Successful' })
+        return res.status(201).send({ 200: 'Login Successful', "msg": "Successful" })
       }
       else {
-        return res.status(401).send({ 401: 'Incorrect Password' })
+        return res.status(200).send({ 401: 'Incorrect Password' })
       }
     }
     else {
-      return res.status(401).send({ 401: 'User Not Found' })
+      return res.status(200).send({ 401: 'User Not Found' })
     }
   })
 })

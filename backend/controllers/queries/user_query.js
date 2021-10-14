@@ -33,6 +33,7 @@ const my_queries = {
     `SELECT
     users.username,
     users.id,
+    photos.id AS photo_id,
     comments.created_at,
     comments.content
     FROM comments

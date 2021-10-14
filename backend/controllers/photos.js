@@ -42,7 +42,19 @@ router.get('/comments/:photo_id', (req, res) => {
 router.get('/:id', (req, res) => {
   db.query(photo_queries.find_photo_by_id, [[req.params.id]], (error, results) => {
     if (error) throw error;
-    return res.status(200).send(results[0])
+    db.query(photo_queries.get_comments, [[req.params.id]], (error, comment_results) => {
+      if (error) throw error;
+      return_results = {
+        "user_id": results[0].user_id,
+        "image_url": results[0].image_url,
+        "created_at": results[0].created_at,
+        "username": results[0].username,
+        "photo_id": results[0].id,
+        "comment_count": comment_results.length,
+        "comments": comment_results
+      }
+      return res.status(200).send(return_results)
+    });
   });
 })
 

@@ -15,17 +15,6 @@ const photo_queries = {
     JOIN comments ON photos.id = comments.photo_id
     GROUP BY comments.photo_id
     ORDER BY photos.created_at DESC LIMIT 10;`,
-  find_photo_by_id:
-    `SELECT
-    photos.id AS id,
-    image_url,
-    photos.created_at,
-    email,
-    username,
-    users.id AS user_id
-    FROM photos 
-    JOIN users ON photos.user_id = users.id
-    WHERE photos.id = (?) `,
   get_photos_by_user_id:
     `SELECT  
     photos.id AS photo_id,
@@ -42,6 +31,26 @@ const photo_queries = {
     FROM comments 
     JOIN photos ON comments.photo_id = photos.id
     JOIN users ON comments.user_id = users.id 
+    WHERE photos.id = (?)`,
+  find_photo_by_id:
+    `SELECT
+    photos.id AS id,
+    image_url,
+    photos.created_at,
+    username,
+    users.id AS user_id
+    FROM photos 
+    JOIN users ON photos.user_id = users.id
+    WHERE photos.id = (?) `,
+  get_comments:
+    `SELECT 
+    comments.content,
+    comments.created_at,
+    comments.user_id AS commenter_id,
+    username 
+    FROM comments
+    JOIN photos ON photos.id = comments.photo_id
+    JOIN users ON users.id = comments.user_id
     WHERE photos.id = (?)`
 }
 

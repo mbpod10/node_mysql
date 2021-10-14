@@ -35,8 +35,9 @@ const User = (props) => {
       return (
         <>
           <h6 className="username">
-            {user.username} commented on <Link to={`/user/${element.id}`}>
-              {element.username}</Link>'s post on {element.created_at}
+            {user.username} commented on
+            <Link to={`/user/${element.id}`}>{element.username}</Link>'s
+            <Link to={`/post/${element.photo_id}`}> post</Link> on {element.created_at}
           </h6>
         </>
       )

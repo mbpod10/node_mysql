@@ -42,16 +42,21 @@ const Navibar = (props) => {
               Link
             </Nav.Link>
           </Nav>
-          <Form className="d-flex">
-            <FormControl
-              type="search"
-              placeholder="Search"
-              className="mr-2"
-              aria-label="Search"
-              onChange={onChange}
-            />
-            <Button onClick={onSubmit} variant="outline-success">Search</Button>
-          </Form>
+          <Nav>
+            <LinkContainer to="/login">
+              <Nav.Link>Login</Nav.Link>
+            </LinkContainer>
+            <Form className="d-flex">
+              <FormControl
+                type="search"
+                placeholder="Search"
+                className="mr-2"
+                aria-label="Search"
+                onChange={onChange}
+              />
+              <Button onClick={onSubmit} variant="outline-success">Search</Button>
+            </Form>
+          </Nav>
         </Navbar.Collapse>
       </Navbar>
     </>

@@ -50,25 +50,12 @@ CREATE TABLE profiles (
     FOREIGN KEY(user_id) REFERENCES users(id)
 );
 
--- SELECT
--- *
--- FROM comments
--- JOIN photos ON photos.id = comments.photo_id
--- RIGHT JOIN users
--- ON users.id = photos.user_id
--- WHERE comments.user_id = 8;
-
--- SELECT
--- users.username,
--- comments.created_at,
--- comments.content
--- FROM comments
--- JOIN photos ON photos.id = comments.photo_id
--- RIGHT JOIN users
--- ON users.id = photos.user_id
--- WHERE comments.user_id = 8;
-
--- SELECT * FROM comments WHERE comments.user_id = 8;
-
-INSERT INTO comments(content, user_id, photo_id)
-VALUES ('HEYYYYYYY', 1, 20);
+SELECT 
+comments.content,
+comments.created_at,
+comments.user_id AS commenter_id,
+username 
+FROM comments
+JOIN photos ON photos.id = comments.photo_id
+JOIN users ON users.id = comments.user_id
+WHERE photos.id = 20;
