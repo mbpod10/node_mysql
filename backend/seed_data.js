@@ -59,7 +59,7 @@ db.query(add_comments, [comment_values], (err) => {
 })
 
 const createProfileData = () => {
-  for (let i = 1; i <= DATA_NUMBER - 1; i++) {
+  for (let i = 1; i <= DATA_NUMBER; i++) {
     let fname = names[i - 1].split(' ')[0]
     let lname = names[i - 1].split(' ')[1]
     let image = faker.image.avatar()

@@ -14,7 +14,7 @@ const my_queries = {
   find_user:
     `SELECT * FROM users WHERE email= (?)`,
   create_user:
-    "INSERT INTO users (email, password) VALUES (?)",
+    "INSERT INTO users (email, username, password) VALUES (?)",
   create_photo:
     "INSERT INTO photos (image_url, user_id) VALUES (?)",
   find_user_by_id:
@@ -45,7 +45,9 @@ const my_queries = {
   // get_comments_by_id:
   //   `SELECT * FROM comments WHERE comments.user_id = (?)`,
   join_user_and_profile:
-    `SELECT * FROM users JOIN profiles ON users.id = profiles.user_id`
+    `SELECT * FROM users JOIN profiles ON users.id = profiles.user_id`,
+  created_profile:
+    `INSERT INTO profiles (first_name, last_name, profile_image, profile_description, user_id) VALUES (?)`
 }
 
 module.exports = my_queries

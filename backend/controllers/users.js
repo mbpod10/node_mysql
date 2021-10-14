@@ -21,10 +21,11 @@ router.post('/create_user', (req, res) => {
     }
     else {
       const hash = bcrypt.hashSync(req.body.password, 10);
-      db.query(user_queries.create_user, [[unique_email, hash]], (err) => {
-        if (err) throw err;
-        console.log(hash)
-        return res.status(201).send({ 201: "USER CREATED" })
+      db.query(user_queries.create_user, [[unique_email, req.body.username, hash]], (error, results) => {
+        if (error) throw error;
+        console.log(results.insertId)
+        id = results.insertId
+        return res.status(201).send({ "id": id })
       })
     }
   })
@@ -56,9 +57,16 @@ router.get('/profiles', (req, res) => {
   });
 })
 
-router.get('/search/:search', (req, res) => {
-  search_query = `SELECT * from users WHERE email LIKE '%${req.params.search}%'`
-  db.query(search_query, [req.params.search], (error, results) => {
+// router.get('/profiles', (req, res) => {
+//   db.query(user_queries.join_user_and_profile, (error, results) => {
+//     if (error) throw error;
+//     return res.status(200).send(results)
+//   });
+// })
+
+router.post('/create_profile', (req, res) => {
+  params = [req.body.first_name, req.body.last_name, req.body.profile_image, req.body.profile_description, req.body.user_id]
+  db.query(user_queries.created_profile, [params], (error, results) => {
     if (error) throw error;
     return res.status(200).send(results)
   });

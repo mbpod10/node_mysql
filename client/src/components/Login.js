@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Link } from "react-router-dom";
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import Container from 'react-bootstrap/Container';
@@ -48,12 +49,13 @@ const Login = () => {
             <Form.Control onChange={handleChange} type="password" placeholder="Password" name="password" />
           </Form.Group>
           <Button variant="primary" type="submit" >
-            Submit
+            Log In
           </Button>
         </Form> <br />
         {
           loggedIn ? <p>{user.email} logged in!</p> : null
         }
+        <h6>Sign Up <Link to="/register">Here</Link></h6>
       </Container>
 
     </>
