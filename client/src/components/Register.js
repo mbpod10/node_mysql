@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from "react-router-dom";
 import Form from 'react-bootstrap/Form';
 import FloatingLabel from 'react-bootstrap/FloatingLabel';
@@ -12,6 +12,13 @@ const Register = () => {
 
   const [user_id, setId] = useState(null)
   const [makeCall, setMakeCall] = useState(false)
+
+  useEffect(() => {
+    axios.get('http://localhost:4001/users/next_id').then((response) => {
+      // console.log(response.data[0].id) 
+      setId(response.data[0].id)
+    })
+  })
 
   const [user, setUser] = useState({
     "email": "",
@@ -45,30 +52,35 @@ const Register = () => {
 
   const handleSubmit = (event) => {
     event.preventDefault()
-    async function makeAPICall() {
-      await axios.post(`http://localhost:4001/users/create_user`, user).then((response) => {
+    function makeAPICall() {
+      axios.post(`http://localhost:4001/users/create_user`, user).then((response) => {
         console.log(response.data)
-        if (response.data.id) {
-          setId(response.data.id)
-          setMakeCall(true)
-        }
-        profile["user_id"] = user_id
+        // if (response.data.id) {
+        //   setId(response.data.id)
+        // }
       })
     }
     makeAPICall()
+    makeProfile()
   }
 
-  if (makeCall) {
-    function createdProfile() {
-      axios.post(`http://localhost:4001/users/create_profile`, profile).then((response) => {
-        console.log(response.data)
-      })
+  const makeProfile = () => {
+    // profile["user_id"] = user_id
+    const sentProfile = {
+      "user_id": user_id,
+      "first_name": profile.first_name,
+      "last_name": profile.last_name,
+      "profile_image": profile.profile_image,
+      "profile_description": profile.profile_description
     }
-    createdProfile()
+    console.log(sentProfile)
+    axios.post(`http://localhost:4001/users/create_profile`, sentProfile).then((response) => {
+      console.log(response.data)
+    })
   }
-
 
   console.log(user_id)
+
   return (
     <>
       <h1>Register</h1>

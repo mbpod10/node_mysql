@@ -45,9 +45,11 @@ const my_queries = {
   // get_comments_by_id:
   //   `SELECT * FROM comments WHERE comments.user_id = (?)`,
   join_user_and_profile:
-    `SELECT * FROM users JOIN profiles ON users.id = profiles.user_id`,
+    `SELECT * FROM users JOIN profiles ON users.id = profiles.user_id ORDER BY users.id DESC`,
   created_profile:
-    `INSERT INTO profiles (first_name, last_name, profile_image, profile_description, user_id) VALUES (?)`
+    `INSERT INTO profiles (first_name, last_name, profile_image, profile_description, user_id) VALUES (?)`,
+  get_next_user_id:
+    `SELECT id+1 AS id FROM users ORDER BY id DESC LIMIT 1;`
 }
 
 module.exports = my_queries

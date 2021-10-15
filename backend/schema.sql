@@ -50,12 +50,4 @@ CREATE TABLE profiles (
     FOREIGN KEY(user_id) REFERENCES users(id)
 );
 
-SELECT 
-comments.content,
-comments.created_at,
-comments.user_id AS commenter_id,
-username 
-FROM comments
-JOIN photos ON photos.id = comments.photo_id
-JOIN users ON users.id = comments.user_id
-WHERE photos.id = 20;
+SELECT id+1 AS id FROM users ORDER BY id DESC LIMIT 1;

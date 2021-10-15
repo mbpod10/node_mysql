@@ -57,17 +57,28 @@ router.get('/profiles', (req, res) => {
   });
 })
 
-// router.get('/profiles', (req, res) => {
-//   db.query(user_queries.join_user_and_profile, (error, results) => {
-//     if (error) throw error;
-//     return res.status(200).send(results)
-//   });
-// })
+router.get('/next_id', (req, res) => {
+  db.query(user_queries.get_next_user_id, (error, results) => {
+    if (error) throw error;
+    return res.status(200).send(results)
+  });
+})
 
 router.post('/create_profile', (req, res) => {
   params = [req.body.first_name, req.body.last_name, req.body.profile_image, req.body.profile_description, req.body.user_id]
   db.query(user_queries.created_profile, [params], (error, results) => {
-    if (error) throw error;
+    // if (error) throw error
+    if (error) {
+      try {
+        db.query(`DELETE FROM users WHERE users.id = ${req.params.id}`, (error, results) => {
+          if (error) throw error
+          return res.status(200).send({ "error": "major_error! USER DELETED!" })
+        })
+      }
+      catch {
+
+      }
+    };
     return res.status(200).send(results)
   });
 })
