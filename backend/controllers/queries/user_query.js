@@ -15,8 +15,6 @@ const my_queries = {
     `SELECT * FROM users WHERE email= (?)`,
   create_user:
     "INSERT INTO users (email, username, password) VALUES (?)",
-  create_photo:
-    "INSERT INTO photos (image_url, user_id) VALUES (?)",
   find_user_by_id:
     `SELECT 
     photos.id AS image_id, 

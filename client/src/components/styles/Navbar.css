@@ -9,3 +9,8 @@
 .navbar-collapse {
   justify-content: space-between;
 }
+
+.fa-plus-square {
+  font-size: 25px;
+  color: lime
+} 

@@ -12,7 +12,7 @@ router.get('/', (req, res) => {
 })
 
 router.post('/create_photo', (req, res) => {
-  db.query(my_queries.create_photo, [[req.body.image_url, req.body.user_id]], (error, results) => {
+  db.query(photo_queries.create_photo, [[req.body.image_url, req.body.user_id, req.body.caption]], (error, results) => {
     if (error) throw error;
     return res.status(200).send(results)
   })
@@ -34,6 +34,12 @@ router.get('/home_photos', (req, res) => {
 
 router.get('/comments/:photo_id', (req, res) => {
   db.query(photo_queries.get_comments_by_photo_id, [[req.params.photo_id]], (error, results) => {
+    if (error) throw error;
+    return res.status(200).send(results)
+  });
+})
+router.get('/crazy', (req, res) => {
+  db.query(photo_queries.crazy, (error, results) => {
     if (error) throw error;
     return res.status(200).send(results)
   });

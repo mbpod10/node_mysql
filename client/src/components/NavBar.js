@@ -6,6 +6,8 @@ import Form from 'react-bootstrap/Form';
 import FormControl from 'react-bootstrap/FormControl';
 import { LinkContainer } from 'react-router-bootstrap'
 import './styles/Navbar.css'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faPlusSquare } from '@fortawesome/free-solid-svg-icons'
 
 
 const Navibar = (props) => {
@@ -38,14 +40,6 @@ const Navibar = (props) => {
             <LinkContainer to="/users">
               <Nav.Link>Users</Nav.Link>
             </LinkContainer>
-            <Nav.Link href="#" disabled>
-              Link
-            </Nav.Link>
-          </Nav>
-          <Nav>
-            <LinkContainer to="/login">
-              <Nav.Link>Login</Nav.Link>
-            </LinkContainer>
             <Form className="d-flex">
               <FormControl
                 type="search"
@@ -56,6 +50,20 @@ const Navibar = (props) => {
               />
               <Button onClick={onSubmit} variant="outline-success">Search</Button>
             </Form>
+          </Nav>
+          <Nav>
+            {props.loggedIn === "LOGGED_IN" ?
+              <>
+                <LinkContainer to={`/user/${props.user.id}`}>
+                  <Nav.Link >{props.user.username}</Nav.Link>
+                </LinkContainer>
+                <LinkContainer to={`/create_post`}>
+                  <Nav.Link ><FontAwesomeIcon icon={faPlusSquare} /></Nav.Link>
+                </LinkContainer>
+              </> :
+              <LinkContainer to='/login'>
+                <Nav.Link >Login</Nav.Link>
+              </LinkContainer>}
           </Nav>
         </Navbar.Collapse>
       </Navbar>

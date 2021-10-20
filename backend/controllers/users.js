@@ -11,6 +11,14 @@ router.get('/', (req, res) => {
   });
 })
 
+router.get('/search/:search', (req, res) => {
+  search_query = `SELECT * from users WHERE email LIKE '%${req.params.search}%'`
+  db.query(search_query, [req.params.search], (error, results) => {
+    if (error) throw error;
+    return res.status(200).send(results)
+  });
+})
+
 router.post('/create_user', (req, res) => {
   unique_email = req.body.email
   db.query(user_queries.find_user, [[unique_email]], (error, results) => {
@@ -35,9 +43,10 @@ router.post('/login', (req, res) => {
   unique_email = req.body.email
   db.query(user_queries.find_user, [[unique_email]], (error, results) => {
     if (error) throw error;
+    console.log(results[0])
     if (results[0]) {
       if (bcrypt.compareSync(req.body.password, results[0].password)) {
-        return res.status(201).send({ 200: 'Login Successful', "msg": "Successful" })
+        return res.status(201).send({ 200: 'Login Successful', "msg": "LOGGED_IN", "user": results[0] })
       }
       else {
         return res.status(200).send({ 401: 'Incorrect Password' })

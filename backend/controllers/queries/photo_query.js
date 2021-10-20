@@ -51,7 +51,26 @@ const photo_queries = {
     FROM comments
     JOIN photos ON photos.id = comments.photo_id
     JOIN users ON users.id = comments.user_id
-    WHERE photos.id = (?)`
+    WHERE photos.id = (?)`,
+  create_photo:
+    `INSERT INTO photos(image_url, user_id, caption) VALUES (?)`,
+  crazy:
+    `
+    SELECT
+    photos.id AS image_id, 
+    image_url,
+    photos.created_at AS image_posted_at,
+    photos.caption,
+    comments.created_at AS comment_created_at,
+    comments.content,
+    users.id AS commenting_user_id,
+    users.username AS username
+
+    FROM photos
+    JOIN comments ON comments.photo_id = photos.id
+    JOIN users ON users.id = comments.user_id
+    WHERE photos.user_id = 51
+    `
 }
 
 module.exports = photo_queries

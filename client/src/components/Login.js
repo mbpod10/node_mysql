@@ -7,7 +7,7 @@ import "./styles/Login.css"
 import axios from 'axios';
 
 
-const Login = () => {
+const Login = (props) => {
   const [loggedIn, setLoggedIn] = useState(false)
   const [user, setUser] = useState({
     "email": "",
@@ -15,7 +15,6 @@ const Login = () => {
   })
 
   const handleChange = (event) => {
-    // console.log(event.target.name, event.target.value)
     setUser({
       ...user,
       [event.target.name]: event.target.value
@@ -26,10 +25,12 @@ const Login = () => {
     event.preventDefault()
     async function makeAPICall() {
       await axios.post(`http://localhost:4001/users/login`, user).then((response) => {
-        console.log(response.data)
-        if (response.data.msg === "Successful") {
+        // console.log(response.data)
+        if (response.data.msg === "LOGGED_IN") {
           setLoggedIn(true)
+          props.setGlobalUser(response.data)
         }
+
       })
     }
     makeAPICall()
